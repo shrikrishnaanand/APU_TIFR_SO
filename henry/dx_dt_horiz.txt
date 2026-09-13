@@ -1,0 +1,6 @@
+# Expansion of dt/du (Eq ...)
+# Plain ASCII output from Sage
+
+dx_dt_horiz =
+1/5*((3*chi_A^2 + 9*chi_S^2 + 1)*chi_A*delta*(eta - 1) + (9*chi_A^2 + 3*chi_S^2 + 1)*chi_S*(3*eta - 1))*Xi^5*eta*x^(15/2)*(5*e^6 + 90*e^4 + 120*e^2 + 16)/(m*(e^2 - 1)^6)
+

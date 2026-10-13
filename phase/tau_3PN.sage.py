@@ -260,7 +260,7 @@ dx_dt_final=dx_dt_N_term+dx_dt_1PN_term*Xi**_sage_const_2 +dx_dt_15PN_term*Xi**_
 # In[ ]:
 
 
-tau_3PN=(xe_expr/dx_dt_final.subs({SO**_sage_const_2 :_sage_const_0 },{SO**_sage_const_3 :_sage_const_0 })).subs({e_t:et_e0_NNLO_3PN}).taylor((Xi,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_13 )
+tau_3PN=((xe_expr/dx_dt_final.subs({SO**_sage_const_2 :_sage_const_0 },{SO**_sage_const_3 :_sage_const_0 })).subs({e_t:et_e0_NNLO_3PN}).taylor((Xi,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_13 ))*(_sage_const_2 /_sage_const_3 )
 
 
 # In[ ]:

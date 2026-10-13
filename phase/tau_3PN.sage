@@ -255,7 +255,7 @@ dx_dt_final=dx_dt_N_term+dx_dt_1PN_term*Xi^2+dx_dt_15PN_term*Xi^3+dx_dt_2PN_term
 # In[ ]:
 
 
-tau_3PN=(xe_expr/dx_dt_final.subs({SO^2:0},{SO^3:0})).subs({e_t:et_e0_NNLO_3PN}).taylor((Xi,0),(e0,0),13)
+tau_3PN=((xe_expr/dx_dt_final.subs({SO^2:0},{SO^3:0})).subs({e_t:et_e0_NNLO_3PN}).taylor((Xi,0),(e0,0),13))*(2/3)
 
 
 # In[ ]:

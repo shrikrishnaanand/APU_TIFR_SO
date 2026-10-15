@@ -9,6 +9,13 @@ _sage_const_1 = Integer(1); _sage_const_2 = Integer(2); _sage_const_0 = Integer(
 # In[ ]:
 
 
+from sage.libs.ecl import ecl_eval
+ecl_eval("(ext:set-limit 'ext:heap-size 0)")   # 0 = no ECL-side limit
+
+
+# In[ ]:
+
+
 var('n e_t u_bar v_bar f_4t f_5t g_4t g_5t Xi dt du dv gamma F_phi e_phi y K G m')
 var('u_bar m G eta gamma e_t n Xi')
 var('y y_0 h TE y_1PN y_15PN y_2PN y_25PN Xi chi_A chi_S delta omega')
@@ -60,7 +67,7 @@ dwdt_factor=(_sage_const_3 /_sage_const_2 )*omega_factor*x**(_sage_const_1 /_sag
 # In[ ]:
 
 
-xe_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_NLO_25PN.coefficient(Xi,_sage_const_0 )})
+xe_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_NLO_3PN.coefficient(Xi,_sage_const_0 )})
 
 
 # In[ ]:
@@ -74,7 +81,7 @@ et_e0_N=(((((((xe_N))**(_sage_const_19 /_sage_const_12 ))).taylor(e0,_sage_const
 # In[ ]:
 
 
-xe_1PN_expr=xe_expr.coefficient(Xi,_sage_const_2 ).coefficient(x0**_sage_const_2 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_NLO_25PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 })
+xe_1PN_expr=xe_expr.coefficient(Xi,_sage_const_2 ).coefficient(x0**_sage_const_2 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_NLO_3PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 })
 
 
 # In[ ]:
@@ -91,7 +98,7 @@ et_e0_1PN=((((xe_1PN_1)**(_sage_const_19 /_sage_const_12 ))).taylor((Xi,_sage_co
 # In[ ]:
 
 
-xe_15_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_NLO_25PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 })
+xe_15_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_NLO_3PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 })
 
 
 # In[ ]:
@@ -123,7 +130,7 @@ et_e0_15PN=(((xe_15PN_2)**(_sage_const_19 /_sage_const_12 )).taylor((e0,_sage_co
 # In[ ]:
 
 
-xe_2_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 +et_e0_NLO_25PN.coefficient(Xi,_sage_const_4 )*Xi**_sage_const_4 })
+xe_2_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 +et_e0_NLO_3PN.coefficient(Xi,_sage_const_4 )*Xi**_sage_const_4 })
 #To save computational time, newtonian order not important 
 
 
@@ -131,7 +138,7 @@ xe_2_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_
 
 
 xe_2_1PN=xe_expr.coefficient(Xi,_sage_const_2 ).coefficient(x0**_sage_const_2 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 })
-#xe_2_1PN_real=xe_expr.coefficient(Xi,2).coefficient(x0^2).taylor((e_t,0),(e0,0),4).subs({e_t:et_e0_NLO_25PN.coefficient(Xi,0)+et_e0_NLO_25PN.coefficient(Xi,2)*Xi^2})
+#xe_2_1PN_real=xe_expr.coefficient(Xi,2).coefficient(x0^2).taylor((e_t,0),(e0,0),4).subs({e_t:et_e0_NLO_3PN.coefficient(Xi,0)+et_e0_NLO_3PN.coefficient(Xi,2)*Xi^2})
 
 
 # In[ ]:
@@ -170,7 +177,7 @@ et_e0_2PN=(((xe_2PN_1**(_sage_const_19 /_sage_const_12 ))).taylor((e0,_sage_cons
 # In[ ]:
 
 
-xe_25_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 +et_e0_2PN.coefficient(Xi,_sage_const_4 )*Xi**_sage_const_4 +et_e0_NLO_25PN.coefficient(Xi,_sage_const_5 )*Xi**_sage_const_5 })
+xe_25_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 +et_e0_2PN.coefficient(Xi,_sage_const_4 )*Xi**_sage_const_4 +et_e0_NLO_3PN.coefficient(Xi,_sage_const_5 )*Xi**_sage_const_5 })
 
 
 # In[ ]:

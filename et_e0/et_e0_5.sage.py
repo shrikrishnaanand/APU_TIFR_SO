@@ -6,14 +6,14 @@ from sage.all_cmdline import *   # import sage library
 
 _sage_const_1 = Integer(1); _sage_const_2 = Integer(2); _sage_const_0 = Integer(0); _sage_const_3 = Integer(3); _sage_const_12 = Integer(12); _sage_const_19 = Integer(19); _sage_const_4 = Integer(4); _sage_const_5 = Integer(5); _sage_const_18 = Integer(18); _sage_const_7 = Integer(7); _sage_const_8 = Integer(8); _sage_const_9 = Integer(9); _sage_const_10 = Integer(10); _sage_const_6 = Integer(6); _sage_const_11 = Integer(11)#!/usr/bin/env python
 
-# In[ ]:
+# In[1]:
 
 
 from sage.libs.ecl import ecl_eval
 ecl_eval("(ext:set-limit 'ext:heap-size 0)")   # 0 = no ECL-side limit
 
 
-# In[ ]:
+# In[1]:
 
 
 var('n e_t u_bar v_bar f_4t f_5t g_4t g_5t Xi dt du dv gamma F_phi e_phi y K G m')
@@ -22,7 +22,7 @@ var('y y_0 h TE y_1PN y_15PN y_2PN y_25PN Xi chi_A chi_S delta omega')
 var('e_t gamma y_inv e0 omega_dash A B flagTail e0 x0 flagHF SO chi w0 f0 j f_var f0_var e y0 kappaA kappaS horiz z')
 
 
-# In[ ]:
+# In[2]:
 
 
 filename = "NLO_e0/et_e0_NLO_3PN.txt"
@@ -39,7 +39,7 @@ if match:
     et_e0_NLO_3PN = (sage_eval(expr_str, locals=globals())).subs({SO**_sage_const_2 :_sage_const_0 },{SO**_sage_const_3 :_sage_const_0 })
 
 
-# In[ ]:
+# In[5]:
 
 
 import re
@@ -55,7 +55,7 @@ if match:
     xe_expr = (((sage_eval(expr_str, locals=globals()))*(e_t**(_sage_const_12 /_sage_const_19 )/e0**(_sage_const_12 /_sage_const_19 ))).expand()).subs({SO**_sage_const_2 :_sage_const_0 },{SO**_sage_const_3 :_sage_const_0 })
 
 
-# In[ ]:
+# In[6]:
 
 
 omega_factor=(_sage_const_1 /(G*m*Xi**_sage_const_3 ))
@@ -64,13 +64,13 @@ dwdt_factor=(_sage_const_3 /_sage_const_2 )*omega_factor*x**(_sage_const_1 /_sag
 
 # **N**
 
-# In[ ]:
+# In[7]:
 
 
-xe_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_NLO_3PN.coefficient(Xi,_sage_const_0 )})
+xe_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_NLO_3PN.coefficient(Xi,_sage_const_0 )})
 
 
-# In[ ]:
+# In[9]:
 
 
 et_e0_N=(((((((xe_N))**(_sage_const_19 /_sage_const_12 ))).taylor(e0,_sage_const_0 ,_sage_const_5 ))))*(e0/chi**(_sage_const_19 /_sage_const_18 ))
@@ -78,13 +78,13 @@ et_e0_N=(((((((xe_N))**(_sage_const_19 /_sage_const_12 ))).taylor(e0,_sage_const
 
 # **1 PN**
 
-# In[ ]:
+# In[11]:
 
 
-xe_1PN_expr=xe_expr.coefficient(Xi,_sage_const_2 ).coefficient(x0**_sage_const_2 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_NLO_3PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 })
+xe_1PN_expr=xe_expr.coefficient(Xi,_sage_const_2 ).coefficient(x0**_sage_const_2 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N+et_e0_NLO_3PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 })
 
 
-# In[ ]:
+# In[12]:
 
 
 xe_1PN_1=xe_1PN_expr*Xi**_sage_const_2 *x0+xe_N
@@ -95,23 +95,23 @@ et_e0_1PN=((((xe_1PN_1)**(_sage_const_19 /_sage_const_12 ))).taylor((Xi,_sage_co
 
 # I basically test if we can ignore substituting PN accurate e_t expressions into orders that are not going to contribute. And yes, you can ignore it here. expressions with _real do not ignore contributions from useless orders
 
-# In[ ]:
+# In[15]:
 
 
-xe_15_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_NLO_3PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 })
+xe_15_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_NLO_3PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 })
 
 
-# In[ ]:
+# In[16]:
 
 
-xe_15_1PN=xe_expr.coefficient(Xi,_sage_const_2 ).coefficient(x0**_sage_const_2 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:y})
+xe_15_1PN=xe_expr.coefficient(Xi,_sage_const_2 ).coefficient(x0**_sage_const_2 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:y})
 #xe_15_1PN_real=xe_expr.coefficient(Xi,2).coefficient(x0^2).taylor((e_t,0),(e0,0),4).subs({e_t:et_e0_N+et_e0_1PN*Xi^2})
 
 
-# In[ ]:
+# In[17]:
 
 
-xe_15PN=xe_expr.coefficient(Xi,_sage_const_3 ).coefficient(x0**(_sage_const_5 /_sage_const_2 )).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N})
+xe_15PN=xe_expr.coefficient(Xi,_sage_const_3 ).coefficient(x0**(_sage_const_5 /_sage_const_2 )).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N})
 
 
 # In[ ]:
@@ -130,21 +130,21 @@ et_e0_15PN=(((xe_15PN_2)**(_sage_const_19 /_sage_const_12 )).taylor((e0,_sage_co
 # In[ ]:
 
 
-xe_2_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 +et_e0_NLO_3PN.coefficient(Xi,_sage_const_4 )*Xi**_sage_const_4 })
+xe_2_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 +et_e0_NLO_3PN.coefficient(Xi,_sage_const_4 )*Xi**_sage_const_4 })
 #To save computational time, newtonian order not important 
 
 
 # In[ ]:
 
 
-xe_2_1PN=xe_expr.coefficient(Xi,_sage_const_2 ).coefficient(x0**_sage_const_2 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 })
+xe_2_1PN=xe_expr.coefficient(Xi,_sage_const_2 ).coefficient(x0**_sage_const_2 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 })
 #xe_2_1PN_real=xe_expr.coefficient(Xi,2).coefficient(x0^2).taylor((e_t,0),(e0,0),4).subs({e_t:et_e0_NLO_3PN.coefficient(Xi,0)+et_e0_NLO_3PN.coefficient(Xi,2)*Xi^2})
 
 
 # In[ ]:
 
 
-xe_2_15PN=xe_expr.coefficient(Xi,_sage_const_3 ).coefficient(x0**(_sage_const_5 /_sage_const_2 )).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e0:y})
+xe_2_15PN=xe_expr.coefficient(Xi,_sage_const_3 ).coefficient(x0**(_sage_const_5 /_sage_const_2 )).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e0:y})
 #xe_2_15PN_real=xe_expr.coefficient(Xi,3).coefficient(x0^(5/2)).taylor((e_t,0),(e0,0),0).subs({e0:et_e0_1PN})
 #To save computational time, 1.5PN order not important 
 
@@ -152,7 +152,7 @@ xe_2_15PN=xe_expr.coefficient(Xi,_sage_const_3 ).coefficient(x0**(_sage_const_5 
 # In[ ]:
 
 
-xe_2PN=xe_expr.coefficient(Xi,_sage_const_4 ).coefficient(x0**_sage_const_3 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N})
+xe_2PN=xe_expr.coefficient(Xi,_sage_const_4 ).coefficient(x0**_sage_const_3 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N})
 
 
 # In[ ]:
@@ -177,32 +177,32 @@ et_e0_2PN=(((xe_2PN_1**(_sage_const_19 /_sage_const_12 ))).taylor((e0,_sage_cons
 # In[ ]:
 
 
-xe_25_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 +et_e0_2PN.coefficient(Xi,_sage_const_4 )*Xi**_sage_const_4 +et_e0_NLO_3PN.coefficient(Xi,_sage_const_5 )*Xi**_sage_const_5 })
+xe_25_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 +et_e0_2PN.coefficient(Xi,_sage_const_4 )*Xi**_sage_const_4 +et_e0_NLO_3PN.coefficient(Xi,_sage_const_5 )*Xi**_sage_const_5 })
 
 
 # In[ ]:
 
 
-xe_25_1PN=xe_expr.coefficient(Xi,_sage_const_2 ).coefficient(x0**_sage_const_2 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 })
+xe_25_1PN=xe_expr.coefficient(Xi,_sage_const_2 ).coefficient(x0**_sage_const_2 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 })
 
 
 # In[ ]:
 
 
-xe_25_15PN=xe_expr.coefficient(Xi,_sage_const_3 ).coefficient(x0**(_sage_const_5 /_sage_const_2 )).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 +et_e0_2PN.coefficient(Xi,_sage_const_4 )*Xi**_sage_const_4 })
+xe_25_15PN=xe_expr.coefficient(Xi,_sage_const_3 ).coefficient(x0**(_sage_const_5 /_sage_const_2 )).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 +et_e0_2PN.coefficient(Xi,_sage_const_4 )*Xi**_sage_const_4 })
 
 
 # In[ ]:
 
 
-xe_25_2PN=xe_expr.coefficient(Xi,_sage_const_4 ).coefficient(x0**_sage_const_3 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:y})
+xe_25_2PN=xe_expr.coefficient(Xi,_sage_const_4 ).coefficient(x0**_sage_const_3 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:y})
 #xe_25_2PN_real=xe_expr.coefficient(Xi,4).coefficient(x0^3).taylor((e_t,0),(e0,0),0).subs({e_t:et_e0_1PN})
 
 
 # In[ ]:
 
 
-xe_25PN=xe_expr.coefficient(Xi,_sage_const_5 ).coefficient(x0**(_sage_const_7 /_sage_const_2 )).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N})
+xe_25PN=xe_expr.coefficient(Xi,_sage_const_5 ).coefficient(x0**(_sage_const_7 /_sage_const_2 )).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N})
 
 
 # In[ ]:
@@ -220,37 +220,37 @@ et_e0_25PN=((((xe_25PN_1)**(_sage_const_19 /_sage_const_12 ))).taylor((e0,_sage_
 # In[ ]:
 
 
-xe_3_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 +et_e0_2PN.coefficient(Xi,_sage_const_4 )*Xi**_sage_const_4 +et_e0_25PN.coefficient(Xi,_sage_const_5 )*Xi**_sage_const_5 +et_e0_NLO_3PN.coefficient(Xi,_sage_const_6 )*Xi**_sage_const_6 })
+xe_3_N=xe_expr.coefficient(Xi,_sage_const_0 ).coefficient(x0).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 +et_e0_2PN.coefficient(Xi,_sage_const_4 )*Xi**_sage_const_4 +et_e0_25PN.coefficient(Xi,_sage_const_5 )*Xi**_sage_const_5 +et_e0_NLO_3PN.coefficient(Xi,_sage_const_6 )*Xi**_sage_const_6 })
 
 
 # In[ ]:
 
 
-xe_3_1PN=xe_expr.coefficient(Xi,_sage_const_2 ).coefficient(x0**_sage_const_2 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 +et_e0_2PN.coefficient(Xi,_sage_const_4 )*Xi**_sage_const_4 })
+xe_3_1PN=xe_expr.coefficient(Xi,_sage_const_2 ).coefficient(x0**_sage_const_2 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 +et_e0_2PN.coefficient(Xi,_sage_const_4 )*Xi**_sage_const_4 })
 
 
 # In[ ]:
 
 
-xe_3_15PN=xe_expr.coefficient(Xi,_sage_const_3 ).coefficient(x0**(_sage_const_5 /_sage_const_2 )).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 })
+xe_3_15PN=xe_expr.coefficient(Xi,_sage_const_3 ).coefficient(x0**(_sage_const_5 /_sage_const_2 )).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 +et_e0_15PN.coefficient(Xi,_sage_const_3 )*Xi**_sage_const_3 })
 
 
 # In[ ]:
 
 
-xe_3_2PN=xe_expr.coefficient(Xi,_sage_const_4 ).coefficient(x0**_sage_const_3 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 })
+xe_3_2PN=xe_expr.coefficient(Xi,_sage_const_4 ).coefficient(x0**_sage_const_3 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N+et_e0_1PN.coefficient(Xi,_sage_const_2 )*Xi**_sage_const_2 })
 
 
 # In[ ]:
 
 
-xe_3_25PN=xe_expr.coefficient(Xi,_sage_const_5 ).coefficient(x0**(_sage_const_7 /_sage_const_2 )).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e0:y})
+xe_3_25PN=xe_expr.coefficient(Xi,_sage_const_5 ).coefficient(x0**(_sage_const_7 /_sage_const_2 )).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e0:y})
 
 
 # In[ ]:
 
 
-xe_3PN=xe_expr.coefficient(Xi,_sage_const_6 ).coefficient(x0**_sage_const_4 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).subs({e_t:et_e0_N})
+xe_3PN=xe_expr.coefficient(Xi,_sage_const_6 ).coefficient(x0**_sage_const_4 ).taylor((e_t,_sage_const_0 ),(e0,_sage_const_0 ),_sage_const_4 ).collect(e_t).subs({e_t:et_e0_N})
 
 
 # In[ ]:

@@ -1,8 +1,13 @@
 #!/bin/bash
-#SBATCH --gres=gpu:1
-#SBATCH --partition=gpu
-#SBATCH --time=24:00:00
-#SBATCH --mem=32G
+# cpu28: longest time limit on the cluster (14 days), 28 cores/node.
+# Sage symbolics are mostly single-threaded, so 8 cores is plenty and
+# gets scheduled sooner than a whole node.
+#SBATCH --partition=cpu28
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=64G
+#SBATCH --time=14-00:00:00
 #SBATCH --job-name=et_e0_5
 #SBATCH --output=et_e0_5_%j.out
 #SBATCH --error=et_e0_5_%j.out
@@ -23,6 +28,12 @@ SAGE_ENV=/bhome/$USER/micromamba/envs/sage
 export PATH=$SAGE_ENV/bin:$PATH
 
 echo "== python:  $(which python)  ($(python --version 2>&1))"
+
+# Let multithreaded libraries (BLAS, FLINT, OpenMP) use the allocated cores.
+NCPU=${SLURM_CPUS_PER_TASK:-1}
+export OMP_NUM_THREADS=$NCPU OPENBLAS_NUM_THREADS=$NCPU MKL_NUM_THREADS=$NCPU \
+       FLINT_NUM_THREADS=$NCPU SAGE_NUM_THREADS=$NCPU
+echo "== cpus:    $NCPU on $(hostname)"
 
 # From here on, stop at the first real error
 set -eo pipefail

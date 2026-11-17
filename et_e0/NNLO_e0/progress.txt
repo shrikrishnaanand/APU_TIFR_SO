@@ -1,0 +1,5 @@
+# Expansion of count
+# Plain ASCII output from Sage
+
+count = 2
+step = fast 3PN done

@@ -1,0 +1,6 @@
+# Expansion of et_e0_NNLO_N
+# Plain ASCII output from Sage
+
+et_e0_NNLO_N =
+1/6653952*e0*(12122304*(chi^(19/9) - 1)*e0^2/chi^(19/9) + (15994231*chi^(38/9) - 66253974*chi^(19/9) + 50259743)*e0^4/chi^(38/9) + 6653952)/chi^(19/18)
+

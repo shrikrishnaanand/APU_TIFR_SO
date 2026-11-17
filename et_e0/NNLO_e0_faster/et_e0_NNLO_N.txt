@@ -1,0 +1,6 @@
+# Expansion of et_e0_NNLO_N (fast power-series version)
+# Plain ASCII output from Sage
+
+et_e0_NNLO_N =
+15994231/6653952*e0^5/chi^(19/18) + 3323/1824*e0^3/chi^(19/18) - 11042329/1108992*e0^5/chi^(19/6) + e0/chi^(19/18) - 3323/1824*e0^3/chi^(19/6) + 50259743/6653952*e0^5/chi^(95/18)
+

@@ -1,0 +1,13 @@
+# k/(1+k) = 1 - 1/K  (paper Eq. 3.10 generalised), K = Phi/(2 pi) = 1 + k, in terms of x and e_t, harmonic coordinates
+# SO terms (and nonspinning to 2PN): Henry & Khalil, "Spin effects in gravitational waveforms and fluxes for binaries on eccentric orbits to the third post-Newtonian order", quasi-Keplerian supplementary file (covariant SSC)
+# nonspinning 3PN term of K: Memmesheimer, Gopakumar & Schafer, gr-qc/0407049 (harmonic n, Phi, e_t^2 in E,h, inverted to x, e_t)
+# SO^2, SO^3 dropped
+# Plain ASCII output from Sage
+
+k_xe =
+((-3*x/(e_t^2 - 1))*Xi^2
+ + (-2*(2*chi_A*delta - chi_S*eta + 2*chi_S)*SO*(e_t + 1)*(e_t - 1)*x^(3/2)*(-1/(e_t^2 - 1))^(3/2)/(e_t^2 - 1))*Xi^3
+ + (-1/4*(26*e_t^2*eta - 51*e_t^2 + 28*eta - 18)*x^2/(e_t^2 - 1)^2)*Xi^4
+ + (-1/2*(28*chi_A*delta*e_t^2*eta - 14*chi_S*e_t^2*eta^2 - 60*chi_A*delta*e_t^2 + 58*chi_S*e_t^2*eta - 60*chi_S*e_t^2 + 17*chi_A*delta*eta - 4*chi_S*eta^2 - 20*chi_A*delta + 57*chi_S*eta - 20*chi_S)*SO*(e_t + 1)*(e_t - 1)*x^(5/2)*(-1/(e_t^2 - 1))^(3/2)/(e_t^2 - 1)^2)*Xi^5
+ + (-1/128*(1040*e_t^4*eta^2 + 123*pi^2*e_t^2*eta - 1760*e_t^4*eta + 2496*e_t^4 + 5120*e_t^2*eta^2 - 1536*sqrt(-e_t^2 + 1)*e_t^2*eta + 492*pi^2*eta - 17856*e_t^2*eta + 3840*sqrt(-e_t^2 + 1)*e_t^2 + 8544*e_t^2 + 896*eta^2 - 768*sqrt(-e_t^2 + 1)*eta - 14624*eta + 1920*sqrt(-e_t^2 + 1) - 192)*x^3/(e_t^2 - 1)^3)*Xi^6)
+

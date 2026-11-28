@@ -1,0 +1,6 @@
+# Expansion of P0: coefficient of x^(m/2) in Psi_j^n, to e0^4, in x, chi, e0, j, n
+# Plain ASCII output from Sage
+
+P0 =
+-2608555/444448*e0^4/chi^(19/9) - 2355/1462*e0^2/chi^(19/9) + 5222765/998944*e0^4/chi^(38/9) + 1
+

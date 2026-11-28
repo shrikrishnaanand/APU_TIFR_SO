@@ -1,19 +1,18 @@
 #!/bin/bash
 # cpu28: longest time limit on the cluster (14 days), 28 cores/node.
-# Sage symbolics are mostly single-threaded, so 8 cores is plenty and
-# gets scheduled sooner than a whole node.
+# Sage symbolics are single-threaded: one core. Writes K_files/K_3PN.txt.
 #SBATCH --partition=cpu28
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=16G
+#SBATCH --mem=32G
 #SBATCH --time=1-00:00:00
 #SBATCH --job-name=K_files
 #SBATCH --output=K_files_%j.out
 #SBATCH --error=K_files_%j.out
 
 # Usage (from inside phase/):  sbatch submit_K_files.sh
-# The notebook uses relative paths (../et_e0/, K_files/k_xe.txt) and writes K_files/k_*PN_expr.txt,
+# The notebook uses relative paths (../et_e0/, K_files/k_xe.txt) and writes K_files/K_3PN.txt,
 # so everything runs from the phase directory.
 
 cd "${SLURM_SUBMIT_DIR:-$(dirname "$0")}"
